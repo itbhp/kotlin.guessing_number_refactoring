@@ -1,7 +1,6 @@
 package fpmax
 
 import java.lang.Exception
-import java.lang.NumberFormatException
 import java.util.*
 import kotlin.random.Random
 
@@ -26,7 +25,7 @@ fun guess(numberToGuess: () -> Int) {
 
         readGuess()
             .map { guess ->
-                evaluateGuess(guess, num, name)
+                processGuess(guess, num, name)
             }.orElseGet {
                 println("Dear $name, you have to insert a number")
             }
@@ -39,9 +38,11 @@ fun guess(numberToGuess: () -> Int) {
     }
 }
 
-private fun evaluateGuess(guess: Int?, num: Int, name: String?) {
-    if (guess == num) println("You guessed right, $name!")
-    else println("You guessed wrong, $name! The number was: $num")
+private fun processGuess(guess: Int?, num: Int, name: String?) {
+    if (guess == num)
+        println("You guessed right, $name!")
+    else
+        println("You guessed wrong, $name! The number was: $num")
 }
 
 private fun readGuess() = Optional.ofNullable(
