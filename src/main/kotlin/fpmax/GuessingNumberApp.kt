@@ -18,24 +18,27 @@ fun guess(numberToGuess: () -> Int) {
 
     var exec = true
 
-    while (exec) {
-        val num = numberToGuess()
+    gameLoop(numberToGuess, name)
+}
 
-        println("Dear $name, please guess a number from 1 to 5:")
+private fun gameLoop(numberToGuess: () -> Int, name: String?) {
+    val num = numberToGuess()
 
-        readGuess()
-            .map { guess ->
-                processGuess(guess, num, name)
-            }.orElseGet {
-                println("Dear $name, you have to insert a number")
-            }
+    println("Dear $name, please guess a number from 1 to 5:")
+
+    readGuess()
+        .map { guess ->
+            processGuess(guess, num, name)
+        }.orElseGet {
+            println("Dear $name, you have to insert a number")
+        }
 
 
-        println("Do you want to continue, $name?")
+    println("Do you want to continue, $name?")
 
-        val answer = readLine()
-        exec = checkAnswer(answer)
-    }
+    val answer = readLine()
+    if (checkAnswer(answer)) gameLoop(numberToGuess, name)
+
 }
 
 private fun processGuess(guess: Int?, num: Int, name: String?) {
