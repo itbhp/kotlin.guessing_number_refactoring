@@ -6,6 +6,7 @@ import org.junit.Test
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
+import java.lang.NumberFormatException
 import java.nio.charset.Charset
 
 class GuessingNumberAppKtTest {
@@ -53,6 +54,38 @@ class GuessingNumberAppKtTest {
         val bao = ByteArrayOutputStream()
 
         val inputs = listOf("Paolo", "2", "n")
+
+        System.setIn(inputs.joinToString("\n").byteInputStream(charset))
+
+        System.setOut(PrintStream(bao))
+
+        guess { 2 }
+
+        assertThat(bao.toString(charset), equalTo("What is your name?\nHello, Paolo, welcome to the game!\nDear Paolo, please guess a number from 1 to 5:\nYou guessed right, Paolo!\nDo you want to continue, Paolo?\n"))
+    }
+
+    @Test(expected = NumberFormatException::class)
+    fun `when guess number is not a number`() {
+        val charset = Charset.forName("utf-8")
+
+        val bao = ByteArrayOutputStream()
+
+        val inputs = listOf("Paolo", "Pippo", "n")
+
+        System.setIn(inputs.joinToString("\n").byteInputStream(charset))
+
+        System.setOut(PrintStream(bao))
+
+        guess { 2 }
+    }
+
+    @Test()
+    fun `wrong continue`() {
+        val charset = Charset.forName("utf-8")
+
+        val bao = ByteArrayOutputStream()
+
+        val inputs = listOf("Paolo", "2", "Pluto")
 
         System.setIn(inputs.joinToString("\n").byteInputStream(charset))
 

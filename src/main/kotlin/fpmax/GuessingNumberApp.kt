@@ -29,11 +29,15 @@ fun guess(numberToGuess: () -> Int) {
         println("Do you want to continue, $name?")
 
         val answer = readLine()
-        when (answer) {
-            "y" -> exec = true
-            "n" -> exec = false
-        }
+        exec = checkAnswer(answer)
     }
 }
+
+private fun checkAnswer(answer: String?): Boolean =
+    when (answer) {
+        "y" -> true
+        "n" ->  false
+        else -> false
+    }
 
 fun randomNumber() = Random.nextInt(5) + 1
