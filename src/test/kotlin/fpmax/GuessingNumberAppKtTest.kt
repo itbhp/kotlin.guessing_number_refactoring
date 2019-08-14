@@ -25,7 +25,10 @@ class GuessingNumberAppKtTest {
 
         guess { 2 }
 
-        assertThat(bao.toString(charset), equalTo("What is your name?\nHello, Paolo, welcome to the game!\nDear Paolo, please guess a number from 1 to 5:\nYou guessed wrong, Paolo! The number was: 2\nDo you want to continue, Paolo?\n"))
+        assertThat(
+            bao.toString(charset),
+            equalTo("What is your name?\nHello, Paolo, welcome to the game!\nDear Paolo, please guess a number from 1 to 5:\nYou guessed wrong, Paolo! The number was: 2\nDo you want to continue, Paolo?\n")
+        )
 
     }
 
@@ -43,7 +46,17 @@ class GuessingNumberAppKtTest {
 
         guess { 2 }
 
-        assertThat(bao.toString(charset), equalTo("What is your name?\nHello, Paolo, welcome to the game!\nDear Paolo, please guess a number from 1 to 5:\nYou guessed wrong, Paolo! The number was: 2\nDo you want to continue, Paolo?\nDear Paolo, please guess a number from 1 to 5:\nYou guessed wrong, Paolo! The number was: 2\nDo you want to continue, Paolo?\n"))
+        assertThat(
+            bao.toString(charset),
+            equalTo("What is your name?\n" +
+                    "Hello, Paolo, welcome to the game!\n" +
+                    "Dear Paolo, please guess a number from 1 to 5:\n" +
+                    "You guessed wrong, Paolo! The number was: 2\n" +
+                    "Do you want to continue, Paolo?\n" +
+                    "Dear Paolo, please guess a number from 1 to 5:\n" +
+                    "You guessed wrong, Paolo! The number was: 2\n" +
+                    "Do you want to continue, Paolo?\n")
+        )
 
     }
 
@@ -61,22 +74,40 @@ class GuessingNumberAppKtTest {
 
         guess { 2 }
 
-        assertThat(bao.toString(charset), equalTo("What is your name?\nHello, Paolo, welcome to the game!\nDear Paolo, please guess a number from 1 to 5:\nYou guessed right, Paolo!\nDo you want to continue, Paolo?\n"))
+        assertThat(
+            bao.toString(charset),
+            equalTo("What is your name?\n" +
+                    "Hello, Paolo, welcome to the game!\n" +
+                    "Dear Paolo, please guess a number from 1 to 5:\n" +
+                    "You guessed right, Paolo!\n" +
+                    "Do you want to continue, Paolo?\n")
+        )
     }
 
-    @Test(expected = NumberFormatException::class)
+    @Test
     fun `when guess number is not a number`() {
         val charset = Charset.forName("utf-8")
 
         val bao = ByteArrayOutputStream()
 
-        val inputs = listOf("Paolo", "Pippo", "n")
+        val inputs = listOf("Paolo", "Pippo", "4", "n")
 
         System.setIn(inputs.joinToString("\n").byteInputStream(charset))
 
         System.setOut(PrintStream(bao))
 
         guess { 2 }
+
+        assertThat(
+            bao.toString(charset),
+            equalTo("""What is your name?
+                        |Hello, Paolo, welcome to the game!
+                        |Dear Paolo, please guess a number from 1 to 5:
+                        |Dear Paolo, you have to insert a number
+                        |Do you want to continue, Paolo?
+                        |""".trimMargin()
+            )
+        )
     }
 
     @Test()
@@ -93,6 +124,9 @@ class GuessingNumberAppKtTest {
 
         guess { 2 }
 
-        assertThat(bao.toString(charset), equalTo("What is your name?\nHello, Paolo, welcome to the game!\nDear Paolo, please guess a number from 1 to 5:\nYou guessed right, Paolo!\nDo you want to continue, Paolo?\n"))
+        assertThat(
+            bao.toString(charset),
+            equalTo("What is your name?\nHello, Paolo, welcome to the game!\nDear Paolo, please guess a number from 1 to 5:\nYou guessed right, Paolo!\nDo you want to continue, Paolo?\n")
+        )
     }
 }

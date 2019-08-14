@@ -1,10 +1,13 @@
 package fpmax
 
+import java.lang.Exception
+import java.lang.NumberFormatException
+import java.util.*
 import kotlin.random.Random
 
 
 fun main(args: Array<String>) {
-    guess { randomNumber()}
+    guess { randomNumber() }
 }
 
 fun guess(numberToGuess: () -> Int) {
@@ -21,10 +24,14 @@ fun guess(numberToGuess: () -> Int) {
 
         println("Dear $name, please guess a number from 1 to 5:")
 
-        val guess = readLine()?.toInt()
+        readGuess()
+            .map { guess ->
+                if (guess == num) println("You guessed right, $name!")
+                else println("You guessed wrong, $name! The number was: $num")
+            }.orElseGet {
+                println("Dear $name, you have to insert a number")
+            }
 
-        if (guess == num) println("You guessed right, $name!")
-        else println("You guessed wrong, $name! The number was: $num")
 
         println("Do you want to continue, $name?")
 
@@ -33,10 +40,18 @@ fun guess(numberToGuess: () -> Int) {
     }
 }
 
+private fun readGuess() = Optional.ofNullable(
+    try {
+        readLine()?.toInt()
+    } catch (e: Exception) {
+        null
+    }
+)
+
 private fun checkAnswer(answer: String?): Boolean =
     when (answer) {
         "y" -> true
-        "n" ->  false
+        "n" -> false
         else -> false
     }
 
