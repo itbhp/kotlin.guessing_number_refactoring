@@ -4,30 +4,36 @@ import kotlin.random.Random
 
 
 fun main(args: Array<String>) {
-        println("What is your name?")
+    guess { randomNumber()}
+}
 
-        val name = readLine()
+fun guess(numberToGuess: () -> Int) {
+    println("What is your name?")
 
-        println("Hello, " + name + ", welcome to the game!")
+    val name = readLine()
 
-        var exec = true
+    println("Hello, " + name + ", welcome to the game!")
 
-        while (exec) {
-            val num = Random.nextInt(5) + 1
+    var exec = true
 
-            println("Dear $name, please guess a number from 1 to 5:")
+    while (exec) {
+        val num = numberToGuess()
 
-            val guess = readLine()?.toInt()
+        println("Dear $name, please guess a number from 1 to 5:")
 
-            if (guess == num) println("You guessed right, $name!")
-            else println("You guessed wrong, $name! The number was: $num")
+        val guess = readLine()?.toInt()
 
-            println("Do you want to continue, $name?")
+        if (guess == num) println("You guessed right, $name!")
+        else println("You guessed wrong, $name! The number was: $num")
 
-            val answer = readLine()
-            when {
-                answer == "y" -> exec = true
-                answer == "n" -> exec = false
-            }
+        println("Do you want to continue, $name?")
+
+        val answer = readLine()
+        when (answer) {
+            "y" -> exec = true
+            "n" -> exec = false
         }
     }
+}
+
+fun randomNumber() = Random.nextInt(5) + 1
