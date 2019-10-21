@@ -8,7 +8,7 @@ fun main(args: Array<String>) {
 
         val name = readLine()
 
-        println("Hello, " + name + ", welcome to the game!")
+        println("Hello, $name, welcome to the game!")
 
         var exec = true
 
@@ -24,10 +24,9 @@ fun main(args: Array<String>) {
 
             println("Do you want to continue, $name?")
 
-            val answer = readLine()
-            when {
-                answer == "y" -> exec = true
-                answer == "n" -> exec = false
+            when (readLine()) {
+                "y" -> exec = true
+                "n" -> exec = false
             }
         }
     }
