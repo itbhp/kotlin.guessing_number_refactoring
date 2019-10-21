@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
         var exec = true
 
         while (exec) {
-            val num = Random.nextInt(5) + 1
+            val num = Random(seed(args)).nextInt(5) + 1
 
             println("Dear $name, please guess a number from 1 to 5:")
 
@@ -30,3 +30,10 @@ fun main(args: Array<String>) {
             }
         }
     }
+
+private fun seed(args: Array<String>): Int {
+    if(args.isNotEmpty()){
+        return Integer.valueOf(args[0])
+    }
+    return 5
+}
