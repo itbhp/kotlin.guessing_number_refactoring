@@ -1,13 +1,13 @@
 package fpmax
 
-import org.hamcrest.CoreMatchers.equalTo
-import org.junit.Assert.assertThat
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.equalTo
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
 import java.nio.charset.Charset
 
-class GuessingNumberAppKtTest {
+internal class GuessingNumberAppKtTest {
 
     @Test
     fun failAndExit() {
