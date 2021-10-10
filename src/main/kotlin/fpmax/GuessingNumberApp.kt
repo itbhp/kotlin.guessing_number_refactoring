@@ -8,26 +8,25 @@ fun main(args: Array<String>) {
 
         val name = readLine()
 
-        println("Hello, " + name + ", welcome to the game!")
+        println("Hello, $name, welcome to the game!")
 
         var exec = true
 
         while (exec) {
-            val num = Random.nextInt(5) + 1
+          val num = Random.nextInt(5) + 1
 
-            println("Dear $name, please guess a number from 1 to 5:")
+          println("Dear $name, please guess a number from 1 to 5:")
 
-            val guess = readLine()?.toInt()
+          val guess = readLine()?.toInt()
 
-            if (guess == num) println("You guessed right, $name!")
-            else println("You guessed wrong, $name! The number was: $num")
+          if (guess == num) println("You guessed right, $name!")
+          else println("You guessed wrong, $name! The number was: $num")
 
-            println("Do you want to continue, $name?")
+          println("Do you want to continue, $name?")
 
-            val answer = readLine()
-            when {
-                answer == "y" -> exec = true
-                answer == "n" -> exec = false
-            }
+          when (readLine()) {
+            "y" -> exec = true
+            "n" -> exec = false
+          }
         }
     }
