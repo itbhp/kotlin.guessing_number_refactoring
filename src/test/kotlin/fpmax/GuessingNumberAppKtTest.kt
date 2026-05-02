@@ -1,12 +1,10 @@
 package fpmax
 
 import org.hamcrest.CoreMatchers.equalTo
-import org.junit.Assert.*
-import org.junit.Test
-import java.io.ByteArrayInputStream
+import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Test
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
-import java.lang.NumberFormatException
 import java.nio.charset.Charset
 
 class GuessingNumberAppKtTest {
