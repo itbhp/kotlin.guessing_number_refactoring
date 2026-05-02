@@ -6,7 +6,7 @@ import kotlin.random.Random
 
 
 fun main(args: Array<String>) {
-    guess { randomNumber() }
+    guess { randomNumber(args) }
 }
 
 fun guess(numberToGuess: () -> Int) {
@@ -15,8 +15,6 @@ fun guess(numberToGuess: () -> Int) {
     val name = readLine()
 
     println("Hello, " + name + ", welcome to the game!")
-
-    var exec = true
 
     gameLoop(numberToGuess, name)
 }
@@ -51,7 +49,7 @@ private fun processGuess(guess: Int?, num: Int, name: String?) {
 private fun readGuess() = Optional.ofNullable(
     try {
         readLine()?.toInt()
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         null
     }
 )
@@ -63,4 +61,11 @@ private fun checkAnswer(answer: String?): Boolean =
         else -> false
     }
 
-fun randomNumber() = Random.nextInt(5) + 1
+fun randomNumber(args: Array<String>) = Random(getSeed(args)).nextInt(5) + 1
+
+private fun getSeed(args: Array<String>): Int {
+    if (args.isNotEmpty()) {
+        return args[0].toIntOrNull() ?: 5
+    }
+    return 5
+}

@@ -1,5 +1,6 @@
 plugins {
   kotlin("jvm") version "2.0.20"
+  application
 }
 
 repositories {
@@ -19,7 +20,10 @@ dependencies {
 group = "it.twinsbrain.katas"
 version = "1"
 description = "it.twinsbrain.katas guessing-number"
-java.sourceCompatibility = JavaVersion.VERSION_21
+
+kotlin {
+  jvmToolchain(21)
+}
 
 tasks.test {
   useJUnitPlatform()
