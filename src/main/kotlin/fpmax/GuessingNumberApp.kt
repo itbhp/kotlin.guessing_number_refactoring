@@ -3,7 +3,7 @@ package fpmax
 import kotlin.random.Random
 
 
-fun main(args: Array<String>) {
+fun main(@Suppress("unused") args: Array<String>) {
   println("What is your name?")
 
   val name = readLine()
